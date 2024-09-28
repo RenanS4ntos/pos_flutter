@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating/flutter_rating.dart';
 import 'package:pos_flutter/models/product_model.dart';
+import 'package:pos_flutter/providers/favorite_provider.dart';
+import 'package:provider/provider.dart';
 
 class ProductDetailPage extends StatefulWidget {
   const ProductDetailPage({
@@ -17,6 +19,11 @@ class ProductDetailPage extends StatefulWidget {
 class _ProductDetailPageState extends State<ProductDetailPage> {
   @override
   Widget build(BuildContext context) {
+    final favoriteProvider = Provider.of<FavoriteProvider>(context);
+    bool isFavorite = favoriteProvider.isFavorite(widget.product);
+
+    print('isFavorite: $isFavorite');
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Produto'),
@@ -33,10 +40,24 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    IconButton(
+                      icon: Icon(
+                        isFavorite ? Icons.favorite : Icons.favorite_border,
+                        color: Colors.red,
+                      ),
+                      onPressed: () {
+                        favoriteProvider.toggleFavorite(widget.product);
+                      },
+                    ),
+                  ],
+                ),
                 Image.network(
                   widget.product.image,
-                  width: 100,
-                  height: 100,
+                  width: 300,
+                  height: 200,
                 ),
                 const SizedBox(height: 16),
                 Text(
