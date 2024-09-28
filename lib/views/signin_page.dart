@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pos_flutter/constants/assets.dart';
 import 'package:pos_flutter/constants/styles.dart';
-import 'package:pos_flutter/views/products_page.dart';
+import 'package:pos_flutter/views/home_page.dart';
 import 'package:pos_flutter/views/signup_page.dart';
 
 class SignInPage extends StatelessWidget {
@@ -76,7 +76,7 @@ class SignInPage extends StatelessWidget {
                     // navegar para tela de produtos
                     Navigator.of(context).pushReplacement(
                       MaterialPageRoute(
-                        builder: (context) => const ProductsPage(),
+                        builder: (context) => const MyHomePage(),
                       ),
                     );
                   },
