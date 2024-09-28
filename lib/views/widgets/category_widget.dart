@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:pos_flutter/constants/styles.dart';
 
 class CategoryWidget extends StatelessWidget {
-  final String text;
+  final String title;
   final String imagePath;
   final Color backgroundColor;
 
   const CategoryWidget({
     super.key,
-    required this.text,
+    required this.title,
     required this.imagePath,
     required this.backgroundColor,
   });
@@ -32,7 +32,7 @@ class CategoryWidget extends StatelessWidget {
             imagePath,
           ),
           Text(
-            text,
+            title,
             style: AppStyles.itensTitle,
             textAlign: TextAlign.center, // Alinha o texto ao centro
           ),
