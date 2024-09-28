@@ -4,8 +4,8 @@ import 'package:pos_flutter/models/product_model.dart';
 import 'package:pos_flutter/providers/favorite_provider.dart';
 import 'package:provider/provider.dart';
 
-class ProductDetailPage extends StatefulWidget {
-  const ProductDetailPage({
+class ProductDetails extends StatelessWidget {
+  const ProductDetails({
     super.key,
     required this.product,
   });
@@ -13,17 +13,11 @@ class ProductDetailPage extends StatefulWidget {
   final ProductModel product;
 
   @override
-  State<ProductDetailPage> createState() => _ProductDetailPageState();
-}
-
-class _ProductDetailPageState extends State<ProductDetailPage> {
-  @override
   Widget build(BuildContext context) {
+    //Estancia do provider criado => FavoriteProvider
     final favoriteProvider = Provider.of<FavoriteProvider>(context);
-    bool isFavorite = favoriteProvider.isFavorite(widget.product);
 
-    print('isFavorite: $isFavorite');
-
+    bool isFavorite = favoriteProvider.isFavorite(product);
     return Scaffold(
       appBar: AppBar(
         title: const Text('Produto'),
@@ -49,25 +43,29 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                         color: Colors.red,
                       ),
                       onPressed: () {
-                        favoriteProvider.toggleFavorite(widget.product);
+                        if (isFavorite) {
+                          favoriteProvider.removeFavoriteProduct(product);
+                        } else {
+                          favoriteProvider.addFavoriteProduct(product);
+                        }
                       },
                     ),
                   ],
                 ),
                 Image.network(
-                  widget.product.image,
+                  product.image,
                   width: 300,
                   height: 200,
                 ),
                 const SizedBox(height: 16),
                 Text(
-                  widget.product.title,
+                  product.title,
                   style: const TextStyle(
                       fontSize: 24, fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(height: 8),
                 Text(
-                  widget.product.description,
+                  product.description,
                   style: const TextStyle(fontSize: 16),
                 ),
                 const SizedBox(height: 8),
@@ -80,7 +78,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                     border: Border.all(color: Colors.lightBlue),
                   ),
                   child: Text(
-                    widget.product.category,
+                    product.category,
                     style: const TextStyle(
                         fontSize: 16,
                         color: Colors.white,
@@ -89,12 +87,12 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                 ),
                 const SizedBox(height: 8),
                 StarRating(
-                  rating: widget.product.rating.rate,
+                  rating: product.rating.rate,
                   color: Colors.lightBlue[300],
                 ),
                 const SizedBox(height: 8),
                 Text(
-                  'R\$ ${widget.product.price}',
+                  'R\$ ${product.price}',
                   style: const TextStyle(
                       fontSize: 24, fontWeight: FontWeight.bold),
                 ),

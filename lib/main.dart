@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pos_flutter/providers/favorite_provider.dart';
+import 'package:pos_flutter/providers/product_provider.dart';
 import 'package:pos_flutter/views/signin_page.dart';
 import 'package:provider/provider.dart';
 
@@ -15,6 +16,7 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => FavoriteProvider()),
+        ChangeNotifierProvider(create: (context) => ProductProvider()),
       ],
       child: MaterialApp(
         title: 'Flutter Demo',

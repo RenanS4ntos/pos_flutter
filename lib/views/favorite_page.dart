@@ -17,31 +17,31 @@ class FavoritePage extends StatelessWidget {
           title: const Text('Favoritos'),
         ),
         body: ListView.builder(
-          padding: const EdgeInsets.all(8),
-          itemCount: favoriteProvider.favorites.length,
-          itemBuilder: (context, index) => GestureDetector(
-            onTap: () {
-              // navegar para a página de detalhes
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) => ProductDetailPage(
-                    product: favoriteProvider.favorites[index],
+            padding: const EdgeInsets.all(8),
+            itemCount: favoriteProvider.favoriteProducts.length,
+            itemBuilder: (context, index) {
+              final product = favoriteProvider.favoriteProducts[index];
+
+              return GestureDetector(
+                onTap: () {
+                  // navegar para a página de detalhes
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => ProductDetails(
+                        product: product,
+                      ),
+                    ),
+                  );
+                },
+                child: ListTile(
+                  leading: Image.network(product.image),
+                  title: Text(product.title),
+                  trailing: const Icon(
+                    Icons.favorite,
+                    color: Colors.red,
                   ),
                 ),
               );
-            },
-            child: ListTile(
-              leading: Image.network(favoriteProvider.favorites[index].image),
-              title: Text(favoriteProvider.favorites[index].title),
-              trailing: IconButton(
-                icon: const Icon(
-                  Icons.favorite,
-                  color: Colors.red,
-                ),
-                onPressed: () {},
-              ),
-            ),
-          ),
-        ));
+            }));
   }
 }
