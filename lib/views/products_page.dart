@@ -1,6 +1,10 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
-import 'package:pos_flutter/mock/products.dart';
+import 'package:pos_flutter/models/product_model.dart';
 import 'package:pos_flutter/views/product_detail_page.dart';
+import 'package:http/http.dart' as http;
+import 'package:pos_flutter/views/widgets/category_widget.dart';
 
 class ProductsPage extends StatefulWidget {
   const ProductsPage({super.key});
@@ -13,7 +17,30 @@ class _ProductsPageState extends State<ProductsPage> {
   @override
   void initState() {
     // TODO: implement initState
+    getProducts();
     super.initState();
+  }
+
+  List<ProductModel> products = [];
+
+  getProducts() async {
+    String baseUrl = 'https://fakestoreapi.com';
+
+    final response = await http.get(Uri.parse('$baseUrl/products'));
+
+    if (response.statusCode == 200) {
+      List<dynamic> jsonData = json.decode(response.body);
+
+      setState(() {
+        products = jsonData.map((product) {
+          return ProductModel.fromJson(product);
+        }).toList();
+      });
+
+      print(products[0].title);
+    } else {
+      print('Erro ao buscar produtos');
+    }
   }
 
   @override
@@ -46,18 +73,17 @@ class _ProductsPageState extends State<ProductsPage> {
                   crossAxisSpacing: 16,
                   mainAxisSpacing: 16,
                 ),
-                itemCount: listProducts.length,
+                itemCount: products.length,
                 itemBuilder: (BuildContext context, int index) {
                   return GestureDetector(
                     onTap: () {
                       Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => ProductDetailPage(
-                                title: listProducts[index].title,
-                                imagePath: listProducts[index].imagePath,
-                                color: listProducts[index].backgroundColor,
-                              )));
+                          builder: (context) =>
+                              ProductDetailPage(product: products[index])));
                     },
-                    child: listProducts[index],
+                    child: CategoryWidget(
+                      product: products[index],
+                    ),
                   );
                 },
               ),

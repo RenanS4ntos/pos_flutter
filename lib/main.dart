@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pos_flutter/views/products_page.dart';
 import 'package:pos_flutter/views/signin_page.dart';
-import 'package:pos_flutter/views/signup_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -19,8 +17,6 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       home: const SignInPage(),
-      // home: const SignUpPage(),
-      // home: const ProductsPage(),
     );
   }
 }

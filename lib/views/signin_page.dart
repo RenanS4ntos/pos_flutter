@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:pos_flutter/constants/assets.dart';
 import 'package:pos_flutter/constants/styles.dart';
 import 'package:pos_flutter/views/products_page.dart';
+import 'package:pos_flutter/views/signup_page.dart';
 
 class SignInPage extends StatelessWidget {
   const SignInPage({super.key});
@@ -108,7 +109,11 @@ class SignInPage extends StatelessWidget {
                   const Text('Não tem uma conta? '),
                   TextButton(
                     onPressed: () {
-                      Navigator.pushNamed(context, '/signup');
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => const SignUpPage(),
+                        ),
+                      );
                     },
                     child: const Text('Cadastre-se'),
                   ),

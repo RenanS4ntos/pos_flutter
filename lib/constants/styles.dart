@@ -8,7 +8,7 @@ class AppStyles {
   );
 
   static TextStyle itensTitle = const TextStyle(
-    fontSize: 20,
+    fontSize: 12,
     fontWeight: FontWeight.bold,
   );
 
